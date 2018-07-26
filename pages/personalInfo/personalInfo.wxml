@@ -1,0 +1,58 @@
+<!--pages/personalInfo/personalInfo.wxml-->
+<form>
+
+  <view class="installList">
+    <view class="item">
+        <view>         
+            头像
+        </view>
+        <view class="">
+          <image src="../../../images/install/6.png" style='width: 75rpx; height: 75rpx;'></image>     
+          <image class="jump" src="../../../images/install/i.png"></image>
+        </view>   
+    </view>
+    <view class="item">
+        <view>          
+            背景图片
+        </view>
+        <view class="">
+          <image src="../../../images/timg.jpg" style='width: 123rpx; height: 62rpx;margin-top:8rpx;'></image>      
+          <image class="jump" src="../../../images/install/i.png"></image>
+        </view>   
+    </view>
+    <view class="item" bindtap="changeName">
+        <view>昵称</view>
+        <view>
+          <view class="word">用户昵称</view>      
+          <image class="jump" src="../../images/install/i.png"></image>
+        </view>   
+    </view>
+    <view class="item" bindtap='personalSign'>
+        <view>个性签名</view>
+        <view>
+          <view class="word">个性签名个性签名</view>      
+          <image class="jump" src="../../images/install/i.png"></image>
+        </view>   
+    </view>
+    <view class="item">
+        <view>手机</view>
+        <view>
+          <view class="word">123xxxx2236</view>      
+          <image class="jump" src="../../images/install/i.png"></image>
+        </view>   
+    </view>
+    <view class="item">
+        <view>邮箱</view>
+        <view>
+          <view class="word">未绑定</view>      
+          <image class="jump" src="../../images/install/i.png"></image>
+        </view>   
+    </view>
+
+  </view>
+
+  <button class="keep" bindtap="primary">保存</button>
+
+</form>
+
+

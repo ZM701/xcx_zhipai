@@ -1,0 +1,43 @@
+<!--pages/findDetail/findDetail.wxml--> 
+<view class="content">
+  <view wx:if="{{note.length==0}}">
+      <view class='none'>
+        <view class='n1'>暂无用户生成过此植物足迹</view>
+        <view class='n2'>生成我的足迹让更多人认识你</view>
+        <view class='n3' bindtap='generateFoot'>生成我的足迹</view>
+      </view>
+  </view>
+   <view wx:else>
+    <view class="left">
+      <block wx:for="{{note}}" wx:key="">
+        <template is="item" data="{{...item}}" wx:if="{{index%2==0}}"></template>
+      </block>
+    </view>
+    <view class="right">
+      <block wx:for="{{note}}" wx:key="">
+        <template is="item" data="{{...item}}" wx:if="{{index%2==1}}"></template>
+      </block>
+    </view>
+  </view> 
+</view>
+<!--  下面是一个模块 -->
+<template name="item">
+  <view class="item">
+    <image class="item-img" src="{{image}}" mode="widthFix" data-recognitionId="{{recognitionId}}" data-latitude="{{latitude}}" data-longitude="{{longitude}}" bindtap='nearbyDetails'></image>
+    <view class="name">
+      <image class="item-ava" src="{{avatar}}" ></image>    
+      <view class='item-info'>
+        <view class="name-title">
+          <image wx:if="{{gender==1}}" class='infoImage' src="../../images/man.png"></image>
+          <image wx:if="{{gender==2}}" class='infoImage' src="../../images/woman.png"></image>
+          <text>{{nickname}}</text>
+        </view>
+        <view>
+          <image class='map' src="../../images/icon1.png"></image>
+          <text>{{location}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</template>

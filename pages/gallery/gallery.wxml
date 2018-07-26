@@ -1,0 +1,18 @@
+<!--pages/gallery/gallery.wxml-->
+<view class="installList" bindtap='integral'>
+   <view class="item">
+      <view>植物名：植物名</view>
+   </view>
+   <view class="item">
+      <view>拍摄地点：拍摄地点</view>
+   </view>
+   <view class="item">
+      <view>拍摄时间：2018-07-08</view>
+   </view>
+</view>
+
+<view class="addImg">
+    <view bindtap='addimg'>
+       <text class="iconfont icon-jiahao"></text> 
+    </view>
+</view>

@@ -1,0 +1,18 @@
+<view class='canvas-box'>
+  <canvas canvas-id="share-map" style="width: 375px; height: 667px;"></canvas>
+</view>
+<view class='bottom-cont'>
+  <view>
+    <swiper  autoplay="true" duration="500" display-multiple-items="3" class='swiper'>
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="100" height="100" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class='flexBox flexAlignCen cont-box'>
+    <view class='share'>转发给朋友</view>
+    <view class='save' catchtap='saveMap'>保存图片</view>
+  </view>
+</view>

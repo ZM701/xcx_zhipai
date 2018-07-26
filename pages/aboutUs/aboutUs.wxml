@@ -1,0 +1,27 @@
+<!--pages/aboutUs/aboutUs.wxml-->
+<view class="about">
+  <image class="bg" bindload='imageLoad'  mode="scaleToFill" src="../../images/install/bg.png"></image>
+  <view class="aboutUs">
+    <view class="logo">
+       <image src="../../images/timg.jpg"></image>
+    </view>
+    <view class="num">版本号：V1.0.0</view>
+    <view class="word">拓展植识面   缘来遇见ta</view>
+    <view class="info">
+       <view class="contact"> 
+          <view>联系我们</view>
+          <view>400-xxxx-xxxx</view>
+        </view>
+        <view class="advice">
+          <view>意见反馈与建议</view>
+          <view>微信：xxxxxxxdddddddddddd</view>
+          <view>QQ：</view> 
+          <view>邮箱：</view>  
+        </view>
+        <view class="copyright">
+            Copyright © xxxxxxxx版权所有
+        </view>
+    </view>
+  </view>
+
+</view>

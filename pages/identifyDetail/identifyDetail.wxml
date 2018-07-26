@@ -1,0 +1,2 @@
+<!--pages/identifyDetail/identifyDetail.wxml--> 
+<identifyDetail bind:back="_back" ideInfo="{{ideInfo}}" bind:remark="_remark" remarkContent="{{remarkContent}}" bind:nums="_nums" content="{{content}}" bind:personalPage="_personalPage"></identifyDetail>

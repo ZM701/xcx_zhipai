@@ -1,0 +1,14 @@
+<!--pages/identify/identify.wxml-->
+<import src="../template/footer/footer.wxml"/>
+
+
+<!--pages/personIdentify/personIdentify.wxml-->
+<view class='identify'>
+  <identify identifications="{{identifications}}" bind:identifyDetail="_identifyDetail"></identify>
+</view>
+
+
+
+
+
+ <template is="footer" data="{{array_pl,array_pl1,array_pl2,array_pl3}}"></template>  

@@ -31,6 +31,9 @@ Component({
     //取消关注
     _cancleAttention() {
       this.triggerEvent("cancleAttention")
+    },
+    _generateFoot(){
+      this.triggerEvent("generateFoot")  
     }
 
   }

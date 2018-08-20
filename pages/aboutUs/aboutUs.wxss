@@ -53,34 +53,42 @@ page{
   display: flex;
   flex-direction:column;
   background: #fff;
-  width: 512rpx;
-  height: 553rpx;
+  width: 80%;
   margin: 40rpx auto;
   border-radius: 20rpx;
+  margin-bottom: 40px;
+  padding: 10px;
 }
 
 .contact{
-  margin-top: 60rpx;
-  text-align: center;
+  margin-top: 20rpx; 
 }
 .contact view:first-child{
   color: #282828;
   font-size: 26rpx;
-  margin-bottom: 10rpx;font-weight: bold;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+  text-align: center;
 }
 .contact view{
   color: #535353;
   font-size: 26rpx;
 }
+.contact .contents{
+  text-align: left;
+  text-indent: 20px;
+  margin-bottom: 10rpx;
+  line-height: 16px;
+}
 
 .advice{
-  margin-top: 60rpx;
+  margin-top: 30rpx;
   text-align: center;
 }
 .advice view{
   color: #525252;
   font-size: 26rpx;
-   margin-bottom: 10rpx;
+  margin-bottom: 10rpx;
 }
 .advice>view:first-child{
   color: #282828;

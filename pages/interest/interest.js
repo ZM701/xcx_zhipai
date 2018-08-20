@@ -1,6 +1,6 @@
 // pages/interest/interest.js
 const app = getApp();
-var page = 1;
+var page = 1; 
 var list = [];
 var tool = require('../../utils/tool.js');
 var util = tool.util,//工具手柄
@@ -158,6 +158,6 @@ Page({
     wx.navigateTo({
       url: '../personalPage/personalPage?uid=' + e.currentTarget.dataset.uid,
     })
-    console.log(e.currentTarget.dataset.uid)
+    // console.log(e.currentTarget.dataset.uid)
   }
 })

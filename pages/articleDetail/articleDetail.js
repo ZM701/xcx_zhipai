@@ -29,9 +29,10 @@ Page({
     var that = this;
     var suCb = function (res) {
       that.setData({
-        articleInfo: res.data.article,
+        articleInfo: res.data.article
       })
-      //console.log(res.data.article.content)
+      console.log(res.data)
+
       //解析富文本
       let contents = res.data.article.content
           .replace(/&lt;/g, "<")
@@ -39,12 +40,9 @@ Page({
 
       
       let article_content = contents;
-      console.log(article_content)
 
       WxParse.wxParse('article_contents', 'html', article_content, that, 5);
-      console.log(that.data.article_contents)
-
-      // console.log(that.data.articleInfo)
+      console.log(that.data.article_contents.nodes)
     };
     var erCb = function (res) {
       console.log("失败")

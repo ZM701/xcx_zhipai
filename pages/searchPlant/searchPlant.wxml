@@ -2,15 +2,14 @@
   <view class="weui-search-bar__form">
     <view class="weui-search-bar__box">
       <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-      <input type="text" class="weui-search-bar__input" placeholder="植物/文章/足迹" value="{{wxSearchData.value}}" bindinput="wxSearchInput" bindconfirm="wxSearchConfirm" />
+      <input type="text" class="weui-search-bar__input" placeholder="植物名称" value="{{keyWords||wxSearchData.value}}" bindinput="wxSearchInput" bindconfirm="wxSearchConfirm" />
       <view class="weui-icon-clear" wx:if="{{wxSearchData.value.length > 0}}" bindtap="wxSearchClear">
         <icon type="clear" size="14"></icon>
       </view>
     </view>
   </view>
-  <view class="weui-search-bar__cancel-btn" bindtap="wxSearchConfirm">
-    <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>搜索</text>
-    <text wx:else data-key='back'>取消</text>
+  <view class="weui-search-bar__cancel-btn" data-keyWords="{{keyWords||wxSearchData.value}}" bindtap="cancle">
+    <text>取消</text>
   </view>
 </view>
 
@@ -27,7 +26,7 @@
       </view>
     </view>
 
-    <view wx:if="{{wxSearchData.his[0]}}" class="wxSearchHistory" style="display:{{wxSearchData.value.length>0 ? 'none':'block'}}">
+    <view wx:if="{{wxSearchData.his[0] && flage==false}}" class="wxSearchHistory" style="display:{{wxSearchData.value.length>0 ? 'none':'block'}}">
       <view class="wxSearchHistoryItem">
         <text class="wxSearchHistoryItemTitle">历史搜索</text>
         <!--text class="wxSearchHistoryItemDel" bindtap="wxSearchDeleteAll">删除</text-->
@@ -40,7 +39,7 @@
       </view>
     </view>
 
-    <view class="wxSearchKey" style="display:{{wxSearchData.value.length>0 ? 'none':'block'}}">
+    <view class="wxSearchKey" style="display:{{wxSearchData.value.length>0 ? 'none':'block'}}" wx:if="{{flage==false}}">
       <text wx:if="{{wxSearchData.hotKeys[0]}}" class="wxSearchTitle">热门搜索</text>
       <view class="wxSearchKeyList">
         <block wx:for="{{wxSearchData.hotKeys}}" wx:key="{{index}}">
@@ -48,5 +47,13 @@
         </block>
       </view>
     </view>
+  </view>
+</view>
+
+
+<!-- 匹配选项 -->
+<view wx:if="{{flage==true}}" class='plant'>
+  <view wx:for="{{plants}}" wx:key="this" class='plants'>
+    <view data-key="{{item.name}}" data-plantId="{{item.plantId}}" bindtap='wxSearchKeyTaps'>{{item.name}}</view>
   </view>
 </view>

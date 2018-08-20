@@ -119,7 +119,7 @@
 }
 .main .location image:first-of-type{
   width: 9px;
-  height: 12px;
+  height: 12px; 
   vertical-align: middle;
   margin-right: 5px;
 }
@@ -157,14 +157,12 @@
   border-radius:5px;
 }
 .feet{
-  overflow: hidden;
-  width: 281px;
-  margin: 0px auto;
+  display: flex;
+  flex-direction: row;
+  padding: 0px 10px;
 }
 .feet view{
-  float: left;
-  width: 132px;
-  text-align: center;
+  width: 100%;
   height: 35px;
   line-height: 35px;
 }

@@ -35,6 +35,11 @@ var configApi = {
   getConfirmPlant: getServerUrl("/recognitions/update.api"),//识别 - 更新识别结果
   getSave: getServerUrl("/recognitions/save.api"),//识别图片
   getAdvs: getServerUrl("/commons/ad_contents.api"),//获取广告内容列表
+  getPresonIdentify: getServerUrl("/identifications/identification_list.api"),//鉴定 - 个人求鉴定列表
+  getPresonInfo: getServerUrl("/members/update_info.api"),//会员-更新个人信息
+  getsearchplants: getServerUrl("/commons/search_plant.api"),//通用-模糊搜索植物库
+  getPost: getServerUrl("/commons/post_image.api"),//通用-贡献植物库
+  getCancalResult: getServerUrl("/identifications/cancal_result.api"),// 取消鉴定  
   getCode: getServerUrl("/commons/qrcode.api"),//识别二维码
   // login: "http://192.168.1.160:1020/user/wx_xcx_login.api"    //登录接口
   login: "https://api.nanniwan.com/user/wx_xcx_login.api"

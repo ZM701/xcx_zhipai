@@ -65,7 +65,7 @@ Page({
       that.setData({
         locationsInfo: res.data
       })
-      // console.log(that.data.locationsInfo)
+      console.log(that.data.locationsInfo)
     };
     var erCb = function (res) {
       console.log("失败")
@@ -142,6 +142,12 @@ Page({
   //取消关注
   _cancleAttention: function () {
     this.getCancleAttention();
+  },
+  //跳转到生成我的足迹
+  _generateFoot:function(){
+    wx.navigateTo({
+      url: '../generateFoot/generateFoot',
+    })
   }
 
 })

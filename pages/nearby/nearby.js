@@ -179,6 +179,7 @@ Page({
     var erCb = function (res) {
       console.log(res)
       wx.showToast({
+        icon:'none',
         title: '获取附近列表失败',
       })
     };

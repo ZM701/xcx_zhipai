@@ -45,21 +45,33 @@
           <text class='look'>{{item.views}}人浏览</text>
         </view>
         <view class='desc'>
-          <view>{{item.content}}</view>
-          <view><image src="../../images/user.png"></image><text>{{item.nickname}}</text></view>
+          <view>{{item.name}}</view>
+          <view><image src="{{item.avatar}}"></image><text>{{item.nickname}}</text></view>
         </view>
       </view>
 
       </scroll-view>
 
     </swiper-item>
-    <swiper-item class="tab-content">
+    <swiper-item class="tab-content"> 
       <!-- 第二块内容 -->
       <scroll-view scroll-y="true" style="height:{{windowHeight}}px;" bindscrolltolower="bindDownLoad">
       <!-- 1.可能感兴趣的人 -->
       <view class='nav'>
-        <view class='inster'><image src="../../images/user.png"></image><text>可能感兴趣的人</text><text bindtap='loop'>查看详情></text></view>
-        <view class='userImg'><image src="../../images/user.png"></image><image src="../../images/user.png"></image><image src="../../images/user.png"></image></view>
+        <view class='inster'>
+           <image wx:if="{{interestInfo.length>0}}" src="{{interestInfo[0].avatar}}"></image> 
+           <image wx:else src="../../images/user.png"></image> 
+          <text>可能感兴趣的人</text>
+          <text bindtap='loop'>查看详情></text>
+        </view>
+        <view class='userImg' bindtap='loop'>
+          <image wx:if="{{interestInfo.length>=2}}" src="{{interestInfo[1].avatar}}"></image>
+          <image wx:else src="../../images/user.png"></image>
+          <image wx:if="{{interestInfo.length>=3}}" src="{{interestInfo[2].avatar}}"></image>
+          <image wx:else src="../../images/user.png"></image>
+          <image wx:if="{{interestInfo.length>=4}}" src="{{interestInfo[3].avatar}}"></image>
+          <image wx:else src="../../images/user.png"></image>
+        </view>
       </view>
       <!-- <view style='height:5px;background:#F5F8FA;margin:10px auto;'></view> -->
       <view class='attention'><image src="../../images/attention.png"></image><text>关注动态</text></view>
@@ -94,7 +106,7 @@
           </view>
           <view class='desc'>
             <view>{{item.content}}</view>
-            <view><image src="../../images/user.png"></image><text>{{item.nickname}}</text></view>
+            <view><image src="{{item.avatar}}"></image><text>{{item.nickname}}</text></view>
           </view>
         </view>
       </block>

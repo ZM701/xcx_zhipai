@@ -17,6 +17,13 @@ Component({
     uid: {
       type: Number
     },
+    pages:{
+      type: Number
+    },
+    disabled:{
+      type:Boolean,
+      value:false
+    }
 
   },
 
@@ -44,20 +51,36 @@ Component({
     },
     //跳转到个人主页
     _personalPage(e) {
-      console.log(e)
+      console.log(this.data.pages)
       this.setData({
         uid: e.currentTarget.dataset.uid
       })
-      this.triggerEvent("personalPage", this.data.uid)
+      if (this.data.pages!=1){
+        this.triggerEvent("personalPage", this.data.uid)
+      }
+      
     },
     //点击评论
     _remark(){
       this.triggerEvent("remark", this.data.content)
     },
+    _touchStart(){
+      this.triggerEvent("touchStart")
+    },
+    _touchEnd(){
+      this.triggerEvent("touchEnd")
+    },
     //点击数量增加
     _nums(e){
       // console.log(e.currentTarget.dataset.name);
       this.triggerEvent("nums", e.currentTarget.dataset.name)
+    },
+    //跳转到个人主页
+    _person(e) {
+      this.setData({
+        uid: e.currentTarget.dataset.uid
+      })
+      this.triggerEvent("person", this.data.uid)
     }
 
   }

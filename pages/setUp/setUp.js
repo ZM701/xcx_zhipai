@@ -86,5 +86,42 @@ Page({
     wx.navigateTo({
       url: '../gallery/gallery',
     })
-  }
+  },
+  //清除缓存
+  cleaning:function(){
+    wx.showModal({
+      title: '提示',
+      content: '确定清除缓存',
+      success: function (res) {
+        if (res.confirm) {
+          wx.clearStorage()
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  //给爱植拍评分
+  remark:function(){
+    //跳转到南泥湾应用商店
+    try {
+      var res = wx.getSystemInfoSync()
+      console.log(/(iPhone|iPad|iPod|iOS)/i.test(res.model))
+      if (/(iPhone|iPad|iPod|iOS)/i.test(res.model) == true) {
+        wx.navigateTo({
+          url: '../out/out',
+        })
+      } else {
+        wx.navigateTo({
+          url: '../out1/out1',
+        })
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
+  } 
+
+
+    
+  
 })

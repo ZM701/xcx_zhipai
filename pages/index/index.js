@@ -173,7 +173,7 @@ Page({
     var that =this;
     var uid = wx.getStorageSync('uid');
     const uploadTask = wx.uploadFile({
-      url: getSave, //
+      url: getSave, // 
       filePath: imgUrl,
       name: 'image',
       formData: {

@@ -11,6 +11,10 @@ Component({
       type: Number,
       value: 0
     },
+    recognitionId:{
+      type: Number,
+      value: 0
+    }
   },
 
   /**
@@ -25,10 +29,12 @@ Component({
    */
   methods: {
     _identifyDetail(e) {
+      // console.log(e)
       this.setData({
         identificationId: e.currentTarget.dataset.identificationid,
+        recognitionId: e.currentTarget.dataset.recognitionid
       })
-      this.triggerEvent("identifyDetail", this.data.identificationId)
+      this.triggerEvent("identifyDetail", { 'identificationId': this.data.identificationId, 'recognitionId': this.data.recognitionId})
     },
 
   }

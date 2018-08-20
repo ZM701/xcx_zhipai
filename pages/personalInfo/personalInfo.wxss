@@ -17,7 +17,9 @@ page{ background: #f0f0f0;}
   display: flex;
 }
 .item>view image{
-  display: block;
+  vertical-align: middle;
+  /* display: block;
+  float: le */
 }
 
 .item>view:first-child{

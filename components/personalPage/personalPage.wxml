@@ -13,7 +13,7 @@
       </view>
       <view style='font-size:12px;'>{{members.bio}}</view>
     </view>
-    <view class='box3'><text catchtap='_identify'>鉴别</text> <text>{{footLength}}</text></view>
+    <view class='box3'><text catchtap='_identify'>鉴别</text> <text>{{members.identificationNum}}</text></view>
   </view>
 </view>
 

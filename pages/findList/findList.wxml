@@ -14,24 +14,8 @@
     <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>搜索</text>
     <text wx:else data-key='back'>取消</text>
   </view>
-</view>
+</view> 
 
 <!-- 搜索结果的处理 -->
 <article bind:findDetail="_findDetail" bind:articleDetail="_articleDetail" bind:locationDetail="_locationDetail" searchPlant="{{searchPlant}}" searchArticle="{{searchArticle}}" searchLocation="{{searchLocation}}"></article>
 
-<!-- <view>
-<block wx:if="{{isShow}}">
-    <view wx:for="{{showData}}" wx:key="{{index}}">
-      <view>地区：{{item.area_name}}</view>
-      <view>产品:{{item.class_name}}</view>
-      <view>价格:{{item.market_price}}</view>
-      <view>长度：{{showData.length}}</view>
-    </view>
-  </block>
-  <block wx:else>
-    <view>
-      空空如也~
-    </view>
-  </block>
-  
-</view> -->

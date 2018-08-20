@@ -22,7 +22,7 @@ function formatNumber(n) {
 var handle = {
   //网络请求
   request: function (param) {
-    // console.log(param);
+    console.log(param);
     wx.request({
       url: param.url || '',
       method: param.method || 'GET',

@@ -6,7 +6,7 @@
   <view class='login-box'>
     <!-- <view class='wx-login'> <text class='iconfont  icon-weixin'></text> 微信登录 植拍</view> -->
     <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getLogin" style=' border:none' class='wx-login'>
-      <text class='iconfont  icon-weixin'></text> 微信登录 植拍
+      <text class='iconfont  icon-weixin'></text> 微信登录 爱植拍
     </button>
     <view class='number-login'>——————
       <text>账号登录</text> ——————</view>

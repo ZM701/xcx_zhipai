@@ -1,9 +1,7 @@
 <!--pages/personalSign/personalSign.wxml-->
 <view class="change">
    <view class="section">
-      <input placeholder="请输入15个字以内的个性签名" auto-focus/>
+      <input placeholder="{{content}}" auto-focus bindinput="contentInput"/>
    </view>
-
    <button class="keep" bindtap="primary">保存</button>
-
 </view>

@@ -1,7 +1,10 @@
 {
-  "pages": [
+  "pages": [  
     "pages/login/login",
-    "pages/nearby/nearby",   
+    "pages/gallery/gallery",
+    
+    "pages/searchPlant/searchPlant",   
+    "pages/nearby/nearby",         
     "pages/mine/mine",     
     "pages/index/share_map/share_map",
     "pages/index/index",   
@@ -27,9 +30,10 @@
     "pages/personalSign/personalSign",
     "pages/aboutUs/aboutUs",
     "pages/integral/integral",
-    "pages/gallery/gallery",
+    
     "pages/out/out",
     "pages/out1/out1"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

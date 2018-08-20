@@ -9,7 +9,7 @@
          <image src="../../images/install/i.png"></image>
       </view>   
    </view>
-   <view class="item">
+   <!-- <view class="item">
       <view>
           <image src="../../images/install/2.png" style='width: 35rpx; height: 34rpx;'></image>
           <view class="name">意见反馈</view>
@@ -17,14 +17,14 @@
       <view class="jump">      
          <image src="../../images/install/i.png"></image>
       </view>   
-   </view>
-   <view class="item">
+   </view> -->
+   <view class="item" bindtap='cleaning'>
       <view>
           <image src="../../images/install/3.png" style='width: 30rpx; height: 34rpx;'></image>
           <view class="name">清除缓存</view>
       </view>
       <view class="jump">
-         <view class="word">缓存12.6MB</view>      
+         <!-- <view class="word">缓存12.6MB</view>       -->
          <image src="../../images/install/i.png"></image>
       </view>   
    </view>
@@ -43,7 +43,7 @@
           <view class="name">当前版本</view>
       </view>
       <view class="jump">      
-         <view class="word">V1.1.0</view>
+         <view class="word">V1.0.0</view>
       </view>   
    </view>
 </view>
@@ -58,7 +58,7 @@
         <image src="../../images/install/i.png"></image>
       </view>   
    </view>
-   <view class="item" bindtap='integral'>
+   <!-- <view class="item" bindtap='integral'>
       <view>
           <image src="../../images/install/6.png" style='width: 32rpx; height: 34rpx;'></image>
           <view class="name">积分规则</view>
@@ -66,11 +66,11 @@
       <view class="jump">      
          <image src="../../images/install/i.png"></image>
       </view>   
-   </view>
-   <view class="item">
+   </view> -->
+   <view class="item" bindtap='remark'>
       <view>
           <image src="../../images/install/7.png" style='width: 32rpx; height: 32rpx;'></image>
-          <view class="name">给识别助手评分</view>
+          <view class="name">给爱植拍评分</view>
       </view>
       <view class="jump">      
          <image src="../../images/install/i.png"></image>
@@ -79,6 +79,6 @@
 
 </view>
 
- <button class="keep" bindtap="primary">立即登录</button> 
+ <!-- <button class="keep" bindtap="primary">立即登录</button>  -->
 <!-- <button class="keep" bindtap="primary">退出登录</button> -->
 

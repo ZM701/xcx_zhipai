@@ -5,8 +5,8 @@
 
 <view>  
 <!-- 头部区域 -->
-    <view class='nav'>
-    <view class='bg'><image src="../../images/bg2.png" mode="aspectFill"></image></view>
+    <view class='nav' wx:if="{{scrollTop<=0}}">
+    <view class='bg'><image src="{{members.background}}" mode="aspectFill"></image></view>
     <view class='navback'><image src="../../images/icon8.png" bindtap='setUp'></image></view>
     <view class='userInfo'>
       <view class='box1'><image src='{{members.avatar}}'></image></view>
@@ -16,13 +16,13 @@
           <!-- <image src='../../images/icon7.png'></image>
           <text class='attention'>13积分</text> -->
         </view>
-        <!-- <view>个性签名</view> -->
+        <view>{{members.bio || signName}}</view> 
       </view>
     </view>
   </view>  
 
   <!-- 消息 好友  关注 粉丝 -->
-    <view class='notice'>
+  <view class='notice' wx:if="{{scrollTop<=0}}">
     <view bindtap='message'> <view>0</view><view>消息</view> </view>
     <view bindtap='goodFriends' data-activeIndex="0"> <view>{{members.friendsNum}}</view><view>好友</view> </view>
     <view bindtap='goodFriends' data-activeIndex="1"> <view>{{members.followingNum}}</view><view>关注</view> </view>
@@ -30,20 +30,22 @@
   </view>
   <view style='height:5px;background:#F5F8FA;margin:0px 0 10px 0;'></view> 
 
-
+ 
 
 
 </view>  
 
 <view class='container'>
-    <view class="{{scrollTop>=200?'navTabs':''}}">
+     <view class="{{scrollTop>0?'navTabs':''}}"> 
+    <!-- <view> -->
       <block wx:for="{{navData}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">        
           <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" bindtap="switchNav">
             <view>{{navItem.text}}</view>
           </view>       
       </block>
     </view>
-    <view class="navNum {{scrollTop>=200?'navNums':'navNum'}}">
+     <view class="navNum {{scrollTop>0?'navNums':'navNum'}}"> 
+    <!-- <view class="navNum"> -->
       <view class="{{currentTab == 0 ?'actives':''}}" data-current="0" bindtap="switchNav">{{historyLength}}</view>
       <view class="{{currentTab == 1 ?'actives':''}}" data-current="1" bindtap="switchNav">{{footLength}}</view>
     </view>
@@ -51,6 +53,7 @@
 
 
       <view class="tab-content" wx:if="{{currentTab==0}}">
+      <scroll-view scroll-y="true" style="height:{{windowHeight}}px;" bindscrolltolower="bindDownLoad" bindscroll="scroll">
       <!-- 识别历史 -->
         <!-- 没有时候的显示 -->
         <view class='none' wx:if="{{history.length==0}}">
@@ -65,7 +68,7 @@
             <view class='dot'></view>
             <view class='timeLine'>
               <view class='footprint'>
-                <view class='img' data-posted='{{item.posted}}' data-status="{{item.status}}" data-recognitionId="{{item.recognitionId}}" data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}" data-month="{{item.month}}" data-season="{{item.season}}" data-identificationId="{{item.identificationId}}" data-imgUrl="{{item.image}}" bindtap='historyDetail'>
+                <view class='img' data-posted='{{item.posted}}' data-status="{{item.status}}" data-recognitionId="{{item.recognitionId}}" data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}" data-month="{{item.month}}" data-season="{{item.season}}" data-identificationId="{{item.identificationId}}" data-imgUrl="{{item.image}}" data-name="{{item.name}}" bindtap='historyDetail'>
                   <view class='bg'><image src='{{item.image}}' mode="aspectFill"></image></view>
                    <view class='number'>
                     <image wx:if="{{item.posted==true}}" src="../../images/icon11.png"></image>
@@ -74,9 +77,15 @@
                    </view> 
                   <view class='look'>
                   <!-- 非植物只显示未鉴别；植物识别结束没有进行任何操作，这里显示识别结果中第一个植物的名称；求高手鉴别，这里显示求鉴别 -->
-                    <view wx:if="{{item.name!=''}}"><text wx:if="{{item.name=='非植物'}}">未鉴别</text><text wx:else>{{item.name}}</text></view>
+                  <view wx:if="{{item.posted==false}}">
+                    <text wx:if="{{item.name=='非植物'}}">未鉴别</text><text wx:else>{{item.name}}</text>
+                  </view>
+                  <view else>
+                    <text wx:if="{{item.status==2}}">求鉴别</text>
+                  </view>
+                    <!-- <view wx:if="{{item.name!=''}}"><text wx:if="{{item.name=='非植物'}}">未鉴别</text><text wx:else>{{item.name}}</text></view> -->
                     <!-- 状态（0未鉴定，1已鉴定，2求鉴定） -->
-                    <view wx:else><text wx:if="{{item.status==0}}">未鉴别</text><text wx:if="{{item.status==2}}">求鉴别</text></view>
+                    <!-- <view wx:else><text wx:if="{{item.status==0}}">未鉴别</text><text wx:if="{{item.status==2}}">求鉴别</text></view> -->
                   </view>
                 </view>
                 <view class='desc'>
@@ -95,11 +104,13 @@
           </view>
         </view>
       </view>
+      </scroll-view>
       </view>
 
 
        
       <view class="tab-content" wx:if="{{currentTab==1}}">
+      <scroll-view scroll-y="true" style="height:{{windowHeight}}px;" bindscrolltolower="bindDownLoad" bindscroll="scroll">
         <!-- 记录足迹（已有足迹）： -->
        <view>
         <view class='nones' wx:if="{{foot.length>0}}">
@@ -140,33 +151,10 @@
           <image src="../../images/img6.png"></image>
           <text bindtap='generateFoot'>立即生产我的足迹</text>
         </view>  
-      </view>  
+      </view>
+      </scroll-view>  
     </view>
-
 </view>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<view style='height:20px;'></view>
  <template is="footer" data="{{array_pl,array_pl1,array_pl2,array_pl3}}"></template>  
 

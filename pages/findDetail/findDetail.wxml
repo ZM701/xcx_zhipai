@@ -8,36 +8,29 @@
       </view>
   </view>
    <view wx:else>
-    <view class="left">
-      <block wx:for="{{note}}" wx:key="">
-        <template is="item" data="{{...item}}" wx:if="{{index%2==0}}"></template>
-      </block>
+
+   <view class='identify'>
+  <view class='res' wx:for="{{note}}" wx:key="this">
+    <view class='imgs' data-identificationId='{{item.identificationId}}' data-recognitionId="{{item.recognitionId}}" data-latitude="{{item.latitude}}" bindtap='nearbyDetails'><image src='{{item.image}}' mode="aspectFill"></image>
+      <view class='views'><image src="../../images/icon11.png"></image> <text>{{item.views}}</text> </view>
+      <view class='location'>
+        <image class='map' src="../../images/icon1.png"></image>
+        <text>{{item.location}}</text>
+      </view>
+    
     </view>
-    <view class="right">
-      <block wx:for="{{note}}" wx:key="">
-        <template is="item" data="{{...item}}" wx:if="{{index%2==1}}"></template>
-      </block>
-    </view>
-  </view> 
-</view>
-<!--  下面是一个模块 -->
-<template name="item">
-  <view class="item">
-    <image class="item-img" src="{{image}}" mode="widthFix" data-recognitionId="{{recognitionId}}" data-latitude="{{latitude}}" data-longitude="{{longitude}}" bindtap='nearbyDetails'></image>
-    <view class="name">
-      <image class="item-ava" src="{{avatar}}" ></image>    
-      <view class='item-info'>
-        <view class="name-title">
-          <image wx:if="{{gender==1}}" class='infoImage' src="../../images/man.png"></image>
-          <image wx:if="{{gender==2}}" class='infoImage' src="../../images/woman.png"></image>
-          <text>{{nickname}}</text>
-        </view>
-        <view>
-          <image class='map' src="../../images/icon1.png"></image>
-          <text>{{location}}</text>
-        </view>
+    <view class='user'>
+      <view class='userImage'><image src='{{item.avatar}}' mode="aspectFill"></image></view>
+      <view class='nick'>
+        <image wx:if="{{item.gender==1}}" src="../../images/man.png"></image>
+        <image wx:if="{{item.gender==2}}" src="../../images/woman.png"></image>
+        <text>{{item.nickname}}</text>
+        <view style='clear:both;'></view>
       </view>
     </view>
   </view>
+</view>
 
-</template>
+      
+    </view> 
+</view>

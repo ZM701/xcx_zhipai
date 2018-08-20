@@ -40,8 +40,8 @@
 
 <cover-view class='top'>
   <cover-image class='ims' src="../../images/search.png" mode="widthFix" bindtap="wxSearchTab"></cover-image>
-  <cover-image class='ims' src="../../images/msg.png" mode="widthFix" bindtap="message"></cover-image>
-  <cover-image class='ims' src="../../images/sign.png" mode="widthFix" bindtap="sign"></cover-image>
+  <!-- <cover-image class='ims' src="../../images/msg.png" mode="widthFix" bindtap="message"></cover-image>
+  <cover-image class='ims' src="../../images/sign.png" mode="widthFix" bindtap="sign"></cover-image> -->
 </cover-view>
 
 

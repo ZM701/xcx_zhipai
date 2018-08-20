@@ -42,6 +42,7 @@ Page({
     locationId:0,  //足迹id
     windowHeight: null, // 屏幕高度
     scrollTop:0,  //滚过的距离
+    signName:'欢迎识别绚丽多彩的世界！'
 
 
   },
@@ -65,6 +66,16 @@ Page({
       }
     });
 
+    if (options.currentTab == null){
+      this.setData({
+        currentTab: 0
+      })
+    }else{
+      this.setData({
+        currentTab: options.currentTab
+      })
+    }
+
 
   
   },
@@ -75,6 +86,7 @@ Page({
       that.setData({
         members: res.data,
       })
+      console.log(res.data)
     };
     var erCb = function (res) {
       console.log("失败")
@@ -254,10 +266,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    list = [];
+    lists = [];
+    page = 1; 
+    pages = 1; 
     this.getMembers();
     this.getHistory(1);
-    this.getFoot(1); 
-    
+    this.getFoot(1);    
   },
 
   
@@ -265,7 +280,20 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  // onReachBottom: function () {
+  //   console.log(this.data.currentTab)
+  //   if (this.data.currentTab==0){
+  //     page = page + 1;
+  //     this.getHistory(page);
+  //   }else{
+  //     pages = pages + 1;
+  //     this.getFoot(pages); 
+  //   }
+    
+    
+     
+  // },
+  bindDownLoad: function () {
     if (this.data.currentTab==0){
       page = page + 1;
       this.getHistory(page);
@@ -273,9 +301,6 @@ Page({
       pages = pages + 1;
       this.getFoot(pages); 
     }
-    
-    
-     
   },
 
   /**
@@ -335,40 +360,71 @@ Page({
     //console.log(e)
     var posted = e.currentTarget.dataset.posted;   // posted：true 公开的    false：仅自己可见   
     var status = e.currentTarget.dataset.status;    //  状态（0未鉴定，1已鉴定，2求鉴定） 
-     
-    if (posted==true){    
-      if (status==1){
-        //生成足迹的图片跳转附近详情页。
-        wx.navigateTo({
+    var name = e.currentTarget.dataset.name;
+    console.log(name)
+    console.log(status)
+
+ 
+    if (status == 0 && name == "非植物") {
+      wx.showToast({
+        title: '非植物 请对准植物重新拍照',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+    }
+    if (status == 0 && name != "非植物"){
+      wx.navigateTo({
+        url: '../index/index?imgUrl=' + e.currentTarget.dataset.imgurl + '&longitude=' + e.currentTarget.dataset.longitude + '&latitude=' + e.currentTarget.dataset.latitude,
+      })
+    }
+    if (status == 1) {
+      //不要关注   有沙发
+      wx.navigateTo({
           url: '../nearbyDetails/nearbyDetails?recognitionid=' + e.currentTarget.dataset.recognitionid + '&longitude=' + e.currentTarget.dataset.longitude + '&latitude=' + e.currentTarget.dataset.latitude + '&month=' + e.currentTarget.dataset.month + '&season=' + e.currentTarget.dataset.season,
-        })
-      }
+      })    
+    }
       if (status == 2) {
         // 求高手鉴别的图片跳转鉴别详情页；
         wx.navigateTo({
           url: '../identifyDetail/identifyDetail?identificationId=' + e.currentTarget.dataset.identificationid,
         })
       }
-    }else{
-      //仅自己可见状态的图片分为：非植物 、未点击确认是此植物 、确认是此植物
 
-      //非植物，跳转到识别拍照页；
+     
+    // if (posted==true){     
+    //   if (status==1){
+    //     //生成足迹的图片跳转附近详情页。
+    //     wx.navigateTo({
+    //       url: '../nearbyDetails/nearbyDetails?recognitionid=' + e.currentTarget.dataset.recognitionid + '&longitude=' + e.currentTarget.dataset.longitude + '&latitude=' + e.currentTarget.dataset.latitude + '&month=' + e.currentTarget.dataset.month + '&season=' + e.currentTarget.dataset.season,
+    //     })
+    //   }
+    //   if (status == 2) {
+    //     // 求高手鉴别的图片跳转鉴别详情页；
+    //     wx.navigateTo({
+    //       url: '../identifyDetail/identifyDetail?identificationId=' + e.currentTarget.dataset.identificationid,
+    //     })
+    //   }
+    // }else{ 
+    //   //仅自己可见状态的图片分为：非植物 、未点击确认是此植物 、确认是此植物
 
-      //未点击确认是此植物跳转识别结果列表页面；
+    //   //非植物，跳转到识别拍照页；
 
-      //点击确认是此植物图片跳转识别结果详情页；
+    //   //未点击确认是此植物跳转识别结果列表页面；
 
-      wx.navigateTo({
-        url: '../index/index?imgUrl=' + e.currentTarget.dataset.imgurl + '&longitude=' + e.currentTarget.dataset.longitude + '&latitude=' + e.currentTarget.dataset.latitude,
-      })
-    }
+    //   //点击确认是此植物图片跳转识别结果详情页；
+
+    //   wx.navigateTo({
+    //     url: '../index/index?imgUrl=' + e.currentTarget.dataset.imgurl + '&longitude=' + e.currentTarget.dataset.longitude + '&latitude=' + e.currentTarget.dataset.latitude,
+    //   })
+    // }
     
     
   },
   //点击足迹 跳转到足迹详情页
   footprintDetail:function(e){
     wx.navigateTo({
-      url: '../footprintDetail/footprintDetail?locationId=' + e.currentTarget.dataset.locationid+"&page=1",
+      url: '../footprintDetail/footprintDetail?locationId=' + e.currentTarget.dataset.locationid + '&page=1',
     })
   },
   //消息
@@ -430,13 +486,11 @@ Page({
       }
     })
   },
-
-
-  onPageScroll: function (e) {
+  scroll: function (e) {
     this.setData({
-      scrollTop: e.scrollTop
+      scrollTop: e.detail.scrollTop
     })
-  }
+  },
 
  
 

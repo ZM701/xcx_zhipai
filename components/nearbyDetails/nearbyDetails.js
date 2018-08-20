@@ -84,6 +84,13 @@ Component({
     //点击生成我的足迹
     _generateFoot(){
       this.triggerEvent("generateFoot")
+    },
+    //跳转到个人主页
+    _person(e){
+      this.setData({
+        uid: e.currentTarget.dataset.uid
+      })
+      this.triggerEvent("person", this.data.uid)
     }
 
   }

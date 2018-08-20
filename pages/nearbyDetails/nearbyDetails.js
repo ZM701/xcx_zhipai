@@ -22,7 +22,7 @@ Page({
     longitude:0,  //精度
     latitude:0,  //纬度
     dataInfo:{},   //数据的获取
-    month:0,  //月份
+    month:"",  //月份
     season:"", //季节
     content: "",  //评论内容
     remarkContent: {},  //鉴别评论的内容   
@@ -73,10 +73,36 @@ Page({
   getNearDetail: function () {
     var that = this;
     var suCb = function (res) {
+
+
+      var item = res.data;
+        item.month = item.createdAt.substr(5, 2);
+        var a = parseInt(item.month.charAt(0))
+        if (a == 0) {
+          item.month = parseInt(item.month.charAt(1))
+        } else {
+          item.month = parseInt(item.createdAt.substr(5, 2));
+        }
+
+        //每年3月至5月划为春季，6月至8月划为夏季，9月至11月划为秋季，12月至下一年2月划为冬季
+
+        if (item.month >= 3 && item.month <= 5) {
+          item.season = "春"
+        }
+        else if (item.month >= 6 && item.month <= 8) {
+          item.season = "夏"
+        }
+        else if (item.month >= 9 && item.month <= 11) {
+          item.season = "秋"
+        }
+        else {
+          item.season = "冬"
+        }
+      
       that.setData({
         dataInfo: res.data
       })
-    //  console.log(res.data)
+     console.log(res.data)
 
     };
     var erCb = function (res) {
@@ -85,8 +111,8 @@ Page({
     };
     var postData = {
       recognitionId: parseFloat(that.data.recognitionId),
-      longitude: parseFloat(that.data.longitude),
-      latitude: parseFloat(that.data.latitude),
+      longitude: app.globalData.longitude,
+      latitude: app.globalData.latitude,
       uid: app.globalData.uid
     };
     var palyParam = {
@@ -208,7 +234,7 @@ Page({
       that.setData({
         remarkContent: list
       })
-      //console.log(that.data.remarkContent)
+      // console.log(that.data.remarkContent)
     };
     var erCb = function (res) {
       console.log("失败")
@@ -320,5 +346,12 @@ Page({
   //点击确认是此植物 
   _confirmPlant:function(){
     this.getConfirmPlant();
+  },
+  //跳转到个人主页
+  //点击头像跳转到个人主页
+  _person: function (e) {
+    wx.navigateTo({
+      url: '../personalPage/personalPage?uid=' + e.detail,
+    })
   }
 })

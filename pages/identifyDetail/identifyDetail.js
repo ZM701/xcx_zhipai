@@ -1,11 +1,12 @@
 // pages/identifyDetail/identifyDetail.js
 const app = getApp(); 
-var page = 1;
+var page = 1; 
 var list = [];
 var tool = require('../../utils/tool.js');
 var util = tool.util,//工具手柄
   getIdentifiDetail = tool.configApi.getIdentifiDetail,  //鉴定 - 获取鉴定信息
   getComments = tool.configApi.getComments,  //鉴别评论
+  getCancalResult = tool.configApi.getCancalResult, //取消鉴定
   getRemark = tool.configApi.getRemark;  //评论
 Page({
 
@@ -18,6 +19,10 @@ Page({
     content:"",  //评论内容
     remarkContent:{},  //鉴别评论的内容
     name:"",  //点击数量时获取当前的名字
+    recognitionId:0,
+    pages:0,
+    disabled:false,
+    identifiedByUid:Boolean,  //是否被鉴定过
   },
 
   /**
@@ -27,8 +32,11 @@ Page({
     page = 1;
     list = [];
     this.setData({
-      identificationId: options.identificationId
+      identificationId: options.identificationId,
+      recognitionId: options.recognitionId,
+      pages: options.pages
     })
+    console.log(options)
     this.getIdentifiDetail();
   
   },
@@ -61,15 +69,18 @@ Page({
         }
      
       that.setData({
-        ideInfo: res.data
+        ideInfo: res.data,
+        identifiedByUid:res.data.identifiedByUid
       })
-      // console.log(that.data.ideInfo)
     };
     var erCb = function (res) {
       console.log("失败")
     };
     var postData = {
-      identificationId: that.data.identificationId
+      identificationId: that.data.identificationId,
+      longitude: app.globalData.longitude,
+      latitude: app.globalData.latitude,
+      uid: app.globalData.uid
     };
     var palyParam = {
       url: getIdentifiDetail,
@@ -88,14 +99,15 @@ Page({
         content: ""
       })
       list = [];
-      that.getComments(1)
+      that.getComments(1);
+      that.getIdentifiDetail();
     };
     var erCb = function (res) {
       console.log("失败")
     };
     var postData = {
       uid: app.globalData.uid,
-      recognitionId: that.data.ideInfo.recognitionId,
+      recognitionId: that.data.recognitionId,
       content: this.data.content
     };
     var palyParam = {
@@ -107,7 +119,7 @@ Page({
     }
     util.request(palyParam);
   },
-  //鉴别评论
+  //评论列表
   getComments: function (page) {
     var that = this;
     var suCb = function (res) {
@@ -126,7 +138,7 @@ Page({
       console.log("失败")
     };
     var postData = {
-      recognitionId: that.data.ideInfo.recognitionId,	
+      recognitionId: that.data.recognitionId,	
       page: page,
       size:20
     };
@@ -144,7 +156,7 @@ Page({
     var that = this;
     var suCb = function (res) {
       that.setData({
-        // ideInfo: res.data
+        // newNums: res.data.results.num
       })
       that.getIdentifiDetail();
       console.log(res.data)
@@ -154,11 +166,37 @@ Page({
     };
     var postData = {
       uid: app.globalData.uid,
-      recognitionId: that.data.ideInfo.recognitionId,
+      recognitionId: that.data.recognitionId,
       content: that.data.name
     };
     var palyParam = {
       url: getRemark,
+      method: "POST",
+      data: postData,
+      success: suCb,
+      error: erCb,
+    }
+    util.request(palyParam);
+  },
+  //取消鉴定
+  getCancalResult: function () {
+    var that = this;
+    var suCb = function (res) {
+      that.setData({
+        // ideInfo: res.data
+      })
+      that.getIdentifiDetail();
+      // console.log(res.data)
+    };
+    var erCb = function (res) {
+      console.log("失败")
+    };
+    var postData = {
+      identificationId:that.data.identificationId,
+      uid: app.globalData.uid
+    };
+    var palyParam = {
+      url: getCancalResult,
       method: "POST",
       data: postData,
       success: suCb,
@@ -173,6 +211,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+   
+  },
+  onShow:function(){
     this.getComments(1);
   },
 
@@ -188,21 +229,62 @@ Page({
     })
   },
   //点击评论
-  _remark:function(e){
-    this.setData({
-      content: e.detail
-    })
-    this.getRemark();
+  // 防止重复点击 
+  _touchStart:function(e){ 
+    this.touchStartTime = e.timeStamp; 
+  }, 
+  _touchEnd: function(e){ 
+    this.touchEndTime = e.timeStamp; 
+  },
 
-    this.getComments();
+  _remark: function(e){
+    console.log(e)
+    var vm = this; 
+    // 控制点击事件在350ms内触发，加这层判断是为了防止长按时会触发点击事件 
+    if (vm.touchEndTime - vm.touchStartTime < 350) { 
+      // 当前点击的时间 
+      var currentTime = e.timeStamp; 
+      var lastTapTime = vm.lastTapTime; 
+      // 更新最后一次点击时间 
+      vm.lastTapTime = currentTime; 
+      // 如果两次点击时间在300毫秒内，则认为是双击事件 
+      if (currentTime - lastTapTime > 300) { 
+           console.log(11)
+           vm.setData({
+              content: e.detail
+            })
+           vm.getRemark();
+           vm.getComments();
+      } 
+    }
+
+    // console.log(11)
+    // this.setData({
+    //   content: e.detail
+    // })
+    // this.getRemark();
+    // this.getComments();
   },
   //点击数量增加
   _nums:function(e){
-    console.log(e.detail)
-    this.setData({
-      name:e.detail
-    })
-    this.getNums()
+    console.log(11)
+    var that = this;
+    if (that.data.identifiedByUid==true){
+      this.getCancalResult(); //取消鉴定
+      
+
+    }else{
+      that.setData({
+        name: e.detail
+      })
+      that.getNums()  //数量增加
+    }
+    // this.setData({
+    //   name:e.detail
+    // })
+    // this.getNums()  //数量增加
+
+    // this.getCancalResult(); //取消鉴定
   },
   onReachBottom:function(){
     page = page + 1;
@@ -215,4 +297,10 @@ Page({
       url: '../personalPage/personalPage?uid=' + e.detail,
     })
   },
+  //点击头像跳转到个人主页
+  _person: function (e) {
+    wx.navigateTo({
+      url: '../personalPage/personalPage?uid=' + e.detail,
+    })
+  }
 })

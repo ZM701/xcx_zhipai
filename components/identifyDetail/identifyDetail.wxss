@@ -177,3 +177,20 @@
   color: #999;
   font-size: 14px;
 }
+.soft{
+  width: 100%;
+  margin: 10px auto;
+}
+.soft image{
+  display: block;
+  margin: 10px auto;
+  width: 48px;
+  height: 36px;
+
+}
+.soft text{
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
+}

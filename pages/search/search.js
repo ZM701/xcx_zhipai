@@ -73,11 +73,6 @@ Page({
     util.request(palyParam);
   },
   onReady: function () {
-
-
-   
-
-
   },
 
 })

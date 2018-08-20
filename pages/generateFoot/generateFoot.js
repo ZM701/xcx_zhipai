@@ -1,8 +1,9 @@
-// pages/generateFoot/generateFoot.js
+// pages/generateFoot/generateFoot.js 
 const app = getApp();
+
 var page = 1;
 var list = [];
-var tool = require('../../utils/tool.js');
+var tool = require('../../utils/tool.js'); 
 var util = tool.util,//工具手柄
   getSaveFoot = tool.configApi.getSaveFoot,
   getHistory = tool.configApi.getHistory; //会员 - 获取会员识别历史列表
@@ -18,7 +19,6 @@ Page({
     recognitions:"", //选中图片的id
     input:"", //文本框的值
     text:"",  //文本域的值
-  
   },
 
   /**
@@ -27,6 +27,7 @@ Page({
   onLoad: function (options) {
   
   },
+
   //识别历史
   getHistory: function (page) {
     var that = this;
@@ -61,7 +62,7 @@ Page({
       that.setData({
         history: list,
       })
-      console.log(that.data.history)
+      // console.log(that.data.history)
     };
     var erCb = function (res) {
       console.log("失败")
@@ -70,7 +71,8 @@ Page({
       uid: app.globalData.uid,
       // uid: 342424,
       page: page,
-      size: 20
+      size: 20,
+      status:1,
     };
     var palyParam = {
       url: getHistory,
@@ -80,7 +82,7 @@ Page({
       error: erCb,
     }
     util.request(palyParam);
-  },
+  }, 
   //生成足迹
   getSaveFoot: function () {
     var that = this;
@@ -88,7 +90,8 @@ Page({
       console.log(res.data.locationId)
       wx.navigateTo({
         // url: '../showFoot/showFoot?locationId=' + res.data.locationId,
-        url: '../footprintDetail/footprintDetail?locationId=' + res.data.locationId+'&page=1',
+        // url: '../footprintDetail/footprintDetail?locationId=' + res.data.locationId+'&page=1',
+        url:'../mine/mine?currentTab=1'
       })
 
       
@@ -98,7 +101,6 @@ Page({
     };
     var postData = {
       uid: app.globalData.uid,
-      // uid:342424,
       name: that.data.input,
       content:that.data.text,
       recognitions: that.data.recognitions
@@ -146,9 +148,6 @@ Page({
   },
   //点击生成足迹
   btn:function(){
-    this.setData({
-      flage:true
-    })
     if (this.data.checkedImages.length <= 0){
       wx.showToast({
         title: '至少选择一张图片',
@@ -156,6 +155,7 @@ Page({
         duration: 1000,
         mask: true
       })
+      return false;
     }
     if (this.data.checkedImages.length > 10){
       wx.showToast({
@@ -164,10 +164,11 @@ Page({
         duration: 1000,
         mask: true
       })
+      return false;
     }
-    if (this.data.checkedImages.length > 0 && this.data.checkedImages.length<=10){
-      
-    }
+    this.setData({
+      flage: true,
+    })
   },
   //点击取消
   cancle:function(){
@@ -177,6 +178,15 @@ Page({
   },
   //点击完成
   success:function(){
+    if (this.data.input == ""){
+      wx.showToast({
+        title: '足迹名称不能为空',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      return false;
+    }
     this.setData({
       flage: false
     })
@@ -184,20 +194,14 @@ Page({
   },
   //复选框事件
   checkboxChange: function (e) {
-    var temp = e.detail.value;
-    if (e.detail.value == '') {
-      this.data.checkedImages[e.currentTarget.dataset.id] = null;
-      this.data.checkedImages.splice(this.data.checkedImages.indexOf(null), 1);
-    }else {
-      var resultarr = [...new Set(this.data.checkedImages.concat(temp))];
-      this.setData({
-        checkedImages: resultarr
-      })
-    }
+    var res = [];
+    res = res.concat(e.detail.value)
+    this.setData({
+      checkedImages : res
+    })
     this.setData({
       recognitions: this.data.checkedImages.join(",")
     })
-    // console.log(this.data.recognitions)
   },
   //输入框事件
   input:function(e){

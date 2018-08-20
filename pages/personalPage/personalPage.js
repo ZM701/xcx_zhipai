@@ -5,6 +5,7 @@ var list = [];
 var tool = require('../../utils/tool.js');
 var util = tool.util,//工具手柄
   getFoot = tool.configApi.getFoot,  //会员 - 获取会员发布足迹列表
+  getPresonIdentify = tool.configApi.getPresonIdentify, // 鉴定 - 个人求鉴定列表
   getMembers = tool.configApi.getMembers;  //会员-会员信息
 Page({
 
@@ -36,6 +37,7 @@ Page({
       that.setData({
         members: res.data,
       })
+      console.log(res)
     };
     var erCb = function (res) {
       console.log("失败")
@@ -53,6 +55,7 @@ Page({
     }
     util.request(palyParam);
   },
+  
   //记录足迹
   getFoot: function (page) {
     var that = this;
@@ -165,7 +168,7 @@ Page({
   //跳转到鉴别页面
   _identify(){
     wx.navigateTo({
-      url: '../identify/identify',
+      url: '../identify/identify?uid='+this.data.uid+'&pages=1',
     })
   }
 })

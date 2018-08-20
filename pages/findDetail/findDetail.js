@@ -52,6 +52,8 @@ Page({
   
   //调用
   onReady: function () {
+    page = 1;
+    list = [];
     this.getSearchPlant(1);
   },
   onReachBottom: function () {  
